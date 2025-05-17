@@ -2,6 +2,8 @@
 
 A Flask-based web application that automatically generates beautiful PowerPoint presentations with modern styling and professional layouts. This application is particularly useful for creating technical presentations, comparisons, and detailed analyses.
 
+For author information and additional project details, please see the [INCLUDE](INCLUDE) file.
+
 ## Features
 
 - Automatic presentation generation from structured content
@@ -104,10 +106,15 @@ The application can be configured through environment variables:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+For author information and contact details, please refer to the [INCLUDE](INCLUDE) file.
 
 ## Acknowledgments
 
 - Built with Python-PPTX for PowerPoint generation
 - Flask web framework
-- Modern UI/UX design principles 
+- Modern UI/UX design principles
+- Special thanks to all contributors 
