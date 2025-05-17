@@ -1,0 +1,8 @@
+flask==3.0.2
+openai==1.79.0
+python-pptx==1.0.2
+python-dotenv==1.0.1
+streamlit==1.45.1
+Werkzeug==3.0.1
+requests==2.31.0
+Jinja2==3.1.6 
