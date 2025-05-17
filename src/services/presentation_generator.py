@@ -220,7 +220,7 @@ class PresentationGenerator:
 
     def _create_table_slide(self, slide: Slide) -> None:
         """Create a slide with a table."""
-        pptx_slide = self.prs.slides.add_slide(self.prs.slide_layouts[1])
+        pptx_slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])  # Using blank layout
         self._add_background_style(pptx_slide)
         
         try:
@@ -235,6 +235,7 @@ class PresentationGenerator:
             )
             title_frame = title_shape.text_frame
             title_frame.clear()
+            title_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
             
             p = title_frame.add_paragraph()
             p.text = slide.title
@@ -255,17 +256,23 @@ class PresentationGenerator:
                     num_rows = len(rows) + 1  # +1 for header
                     num_cols = len(headers)
                     
-                    # Create table
+                    # Create table with better positioning
                     table_left = Inches(1.5)
                     table_top = Inches(2.0)
                     table_width = Inches(10.33)
-                    table_height = Inches(0.6 * num_rows)  # Adjust height based on rows
+                    row_height = Inches(0.6)
+                    table_height = row_height * num_rows
                     
                     table = pptx_slide.shapes.add_table(
                         num_rows, num_cols,
                         table_left, table_top,
                         table_width, table_height
                     ).table
+
+                    # Set column widths evenly
+                    col_width = table_width / num_cols
+                    for col in table.columns:
+                        col.width = col_width
                     
                     # Style headers
                     for i, header in enumerate(headers):
@@ -276,10 +283,12 @@ class PresentationGenerator:
                         paragraph.font.bold = True
                         paragraph.font.color.rgb = RGBColor(255, 255, 255)
                         paragraph.font.name = 'Segoe UI'
+                        paragraph.alignment = PP_ALIGN.CENTER
                         cell.fill.solid()
                         cell.fill.fore_color.rgb = RGBColor(0, 114, 198)
+                        cell.vertical_anchor = MSO_ANCHOR.MIDDLE
                     
-                    # Add data rows
+                    # Add data rows with improved formatting
                     for row_idx, row_data in enumerate(rows, start=1):
                         for col_idx, cell_data in enumerate(row_data):
                             cell = table.cell(row_idx, col_idx)
@@ -288,6 +297,8 @@ class PresentationGenerator:
                             paragraph.font.size = Pt(20)
                             paragraph.font.color.rgb = RGBColor(255, 255, 255)
                             paragraph.font.name = 'Segoe UI'
+                            paragraph.alignment = PP_ALIGN.LEFT
+                            cell.vertical_anchor = MSO_ANCHOR.MIDDLE
                             # Alternate row colors
                             cell.fill.solid()
                             if row_idx % 2 == 0:

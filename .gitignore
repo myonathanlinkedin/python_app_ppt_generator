@@ -48,6 +48,14 @@ presentation_*/
 logs/
 *.log
 
+# Context and sensitive files
+context.json
+context.yaml
+context.yml
+context.txt
+.context
+*.context
+
 # Test coverage
 htmlcov/
 .tox/

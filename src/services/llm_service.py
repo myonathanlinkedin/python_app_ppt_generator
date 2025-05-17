@@ -1,7 +1,9 @@
 import openai
 import json
-from typing import Optional, Dict
+from typing import Optional, Dict, List, Union
 import logging
+import re
+from html import unescape
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -13,6 +15,30 @@ class LLMService:
             base_url=base_url
         )
         
+    def _clean_text(self, text: str) -> str:
+        """Clean text by removing HTML and special characters."""
+        # Remove HTML tags
+        text = re.sub(r'<[^>]+>', '', text)
+        # Convert HTML entities
+        text = unescape(text)
+        # Remove asterisks
+        text = text.replace('*', '')
+        # Remove multiple spaces
+        text = ' '.join(text.split())
+        # Remove leading/trailing whitespace
+        text = text.strip()
+        return text
+
+    def _clean_content(self, content: Union[str, List, Dict]) -> Union[str, List, Dict]:
+        """Recursively clean content in all text fields."""
+        if isinstance(content, str):
+            return self._clean_text(content)
+        elif isinstance(content, list):
+            return [self._clean_content(item) for item in content]
+        elif isinstance(content, dict):
+            return {k: self._clean_content(v) for k, v in content.items()}
+        return content
+
     def _extract_json_from_text(self, text: str) -> Optional[Dict]:
         """Safely extract JSON from text response."""
         try:
@@ -103,7 +129,10 @@ class LLMService:
             if not presentation_data:
                 logger.error("Failed to extract valid JSON from LLM response")
                 return None
-                
+            
+            # Clean all text content
+            presentation_data = self._clean_content(presentation_data)
+            
             return presentation_data
             
         except Exception as e:
