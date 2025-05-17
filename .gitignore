@@ -35,7 +35,16 @@ ENV/
 
 # Project specific
 presentations/
+presentation_*/
 *.pptx
+*.ppt
+*.pot
+*.potx
+*.ppsx
+*.pps
+*.ppsm
+*.ppam
+*.pptm
 logs/
 *.log
 
