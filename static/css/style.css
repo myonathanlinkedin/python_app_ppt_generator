@@ -115,15 +115,26 @@ h1 {
     padding: 0;
     box-sizing: border-box;
     overflow-y: auto;
-    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
 }
 
-.pages-container:not(.show-preview) .input-page,
+/* Page visibility control */
+.pages-container:not(.show-preview) .input-page {
+    display: flex; /* Show input page when not in preview mode */
+}
+
+.pages-container:not(.show-preview) .preview-page {
+    display: none; /* Hide preview page when not in preview mode */
+}
+
+.pages-container.show-preview .input-page {
+    display: none; /* Hide input page when in preview mode */
+}
+
 .pages-container.show-preview .preview-page {
-    display: flex;
+    display: flex; /* Show preview page when in preview mode */
 }
 
 .container {
