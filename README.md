@@ -1,6 +1,6 @@
-# AI Presentation Generator
+# AI PDF & PPT Generator
 
-A modern web application that generates beautiful presentations using AI, with a focus on interactivity and professional design using reveal.js.
+A modern web application that generates professional presentations using AI, with a focus on user-friendly interface and multiple export options.
 
 ## Features
 
@@ -9,16 +9,11 @@ A modern web application that generates beautiful presentations using AI, with a
   - Smart content structuring and organization
   - Professional tone and formatting
 
-- **Interactive HTML Presentations**: 
-  - Built with reveal.js for smooth, modern presentations
-  - Real-time preview in the browser
-  - Beautiful transitions and animations
-  - Responsive design for all screen sizes
-  - Four presentation styles:
-    - Corporate (Professional and clean)
-    - Modern (Bold and contemporary)
-    - Minimal (Simple and elegant)
-    - Creative (Dynamic and engaging)
+- **Multiple Presentation Styles**: 
+  - Professional (Clean and corporate)
+  - Creative (Dynamic and engaging)
+  - Minimal (Simple and elegant)
+  - Modern (Contemporary and bold)
 
 - **Export Options**:
   1. **PDF Export**
@@ -37,10 +32,10 @@ A modern web application that generates beautiful presentations using AI, with a
 
 1. **Frontend Stack**:
    - HTML5 + CSS3
-   - reveal.js for presentations
    - Modern responsive design
    - Font Awesome icons
-   - Inter font family
+   - Custom loading animations
+   - Clean and intuitive user interface
 
 2. **Backend Stack**:
    - Flask web framework
@@ -50,7 +45,7 @@ A modern web application that generates beautiful presentations using AI, with a
 
 3. **Content Flow**:
    ```
-   User Input → AI Generation → HTML Preview (reveal.js) → Export (PDF/PPT)
+   User Input → AI Generation → Preview → Export (PDF/PPT)
    ```
 
 ## Dependencies
@@ -124,28 +119,30 @@ brew install python3 cairo pango gdk-pixbuf libffi
 ## Usage
 
 1. Open your browser and navigate to `http://localhost:5000`
-2. Enter your presentation topic
-3. Choose a presentation style (Corporate, Modern, Minimal, or Creative)
-4. Preview your interactive presentation in the browser
-5. Export to PDF or PowerPoint as needed
+2. Enter your presentation topic in the text area
+3. Select a presentation style from the dropdown menu:
+   - Professional
+   - Creative
+   - Minimal
+   - Modern
+4. Click "Generate Presentation" to start the AI generation process
+5. Preview your presentation
+6. Export to PDF or PowerPoint as needed
 
 ## Project Structure
 
 ```
-presentation-generator/
+ppt_generator/
 ├── app.py                 # Main Flask application
 ├── requirements.txt       # Python dependencies
 ├── static/
-│   └── css/
-│       ├── style.css     # Main application styles
-│       └── presentation.css  # Presentation-specific styles
+│   ├── css/
+│   │   └── style.css     # Main application styles
+│   └── js/
+│       └── app.js        # Frontend JavaScript
 ├── templates/
-│   ├── index.html        # Main application template
-│   └── presentation.html # Presentation template
-└── src/
-    ├── controllers/      # Application controllers
-    ├── services/         # Business logic services
-    └── models/           # Data models
+│   └── index.html        # Main application template
+└── presentations/        # Generated presentations storage
 ```
 
 ## Troubleshooting
