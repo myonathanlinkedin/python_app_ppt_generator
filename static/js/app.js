@@ -237,6 +237,9 @@ const PresentationGenerator = {
                     <button id="export-pptx" class="btn btn-primary">
                         <i class="fas fa-file-powerpoint"></i> Export as PowerPoint
                     </button>
+                     <button class="btn btn-primary" onclick="PresentationGenerator.exportPDF()">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
                 </div>
             </div>
         `;
