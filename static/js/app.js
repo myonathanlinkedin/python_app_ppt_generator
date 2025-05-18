@@ -12,28 +12,15 @@ const PresentationGenerator = {
         this.slides = [];
         this.previewData = null;
         
+        // Hide first-next-button by default
+        if (this.firstNextButton) {
+            this.firstNextButton.style.display = 'none';
+        }
+        
         // --- Mock Data Flag ---
-        this.useMockData = true; // Set to true to use mock data, false to use API
         // ----------------------
 
         // --- Mock Presentation Data ---
-        this.mockPresentationData = {
-            title: "Mock Presentation Title",
-            subtitle: "A quick preview slide",
-            theme: {
-                primary_color: "#0072C6",
-                secondary_color: "#404040",
-                accent_color: "#00B294",
-                background_color: "#FFFFFF"
-            },
-            slides: [
-                {
-                    type: "title",
-                    title: "Welcome to the Mock Presentation!",
-                    content: "This is a sample slide for testing the UI."
-                }
-            ]
-        };
         // ------------------------------
         
         this.bindEvents();
@@ -67,26 +54,19 @@ const PresentationGenerator = {
         const style = formData.get('style');
 
         try {
-            if (this.useMockData) {
-                console.log('Using mock data for preview');
-                const response = { preview: this.mockPresentationData };
-                this.form.reset();
-                this.previewData = response.preview;
-                this.slides = response.preview.slides;
-                this.currentSlideIndex = 0;
-                this.updatePreview(response.preview);
-                this.navigateToPreview();
-                console.log('Mock preview loaded successfully:', response.preview);
-            } else {
-                console.log('Submitting form with data:', { topic, style });
-                const response = await this.generatePreview(topic, style);
-                this.form.reset();
-                this.previewData = response.preview;
-                this.slides = response.preview.slides;
-                this.currentSlideIndex = 0;
-                this.updatePreview(response.preview);
-                this.navigateToPreview();
-                console.log('Preview generated successfully:', response.preview);
+            console.log('Submitting form with data:', { topic, style });
+            const response = await this.generatePreview(topic, style);
+            this.form.reset();
+            this.previewData = response.preview;
+            this.slides = response.preview.slides;
+            this.currentSlideIndex = 0;
+            this.updatePreview(response.preview);
+            this.navigateToPreview();
+            console.log('Preview generated successfully:', response.preview);
+            // Show the first-next-button after successful generation
+            const firstNextButton = document.getElementById('first-next-button');
+            if (firstNextButton) {
+                firstNextButton.style.display = 'flex';
             }
         } catch (error) {
             console.error('Error in handleSubmit:', error);
@@ -260,11 +240,6 @@ const PresentationGenerator = {
                         <i class="fas fa-file-powerpoint"></i> Export as PowerPoint
                     </button>
                 </div>
-                <div class="preview-footer-navigation">
-                    <button class="btn btn-secondary" onclick="PresentationGenerator.navigateToInput()">
-                        <i class="fas fa-arrow-left"></i> Prev
-                    </button>
-                </div>
             </div>
         `;
     },
@@ -386,7 +361,7 @@ const PresentationGenerator = {
         }, 5000);
     },
 
-    showLoading(message = 'Generating your presentation...') {
+    showLoading(message = 'Generating your presentation...', clearPreview = true) {
         if (this.loadingSpinner) {
             const loadingText = this.loadingSpinner.querySelector('.loading-text');
             if (loadingText) {
@@ -403,8 +378,8 @@ const PresentationGenerator = {
             const existingErrors = document.querySelectorAll('.error-message');
             existingErrors.forEach(el => el.remove());
             
-            // Clear preview while loading
-            if (this.preview) {
+            // Only clear preview if explicitly requested (not during export)
+            if (clearPreview && this.preview) {
                 this.preview.innerHTML = '';
             }
             
@@ -446,7 +421,7 @@ const PresentationGenerator = {
             return;
         }
 
-        this.showLoading('Generating PDF...');
+        this.showLoading('Generating PDF...', false); // Don't clear preview during export
         try {
             const response = await fetch('/api/export/pdf', {
                 method: 'POST',
@@ -489,7 +464,7 @@ const PresentationGenerator = {
             return;
         }
 
-        this.showLoading('Generating PowerPoint...');
+        this.showLoading('Generating PowerPoint...', false); // Don't clear preview during export
         try {
             const response = await fetch('/api/export/ppt', {
                 method: 'POST',

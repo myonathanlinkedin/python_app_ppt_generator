@@ -7,6 +7,7 @@ from html import unescape
 import os
 import traceback
 import httpx
+from dotenv import load_dotenv
 
 # Configure logging
 log_dir = "logs"
@@ -24,10 +25,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class LLMService:
-    def __init__(self, api_key: str = "NO_NEED_IF_USING_LMSTUDIO", base_url: str = "http://127.0.0.1:1234/v1"):
-        self.api_key = api_key
-        self.base_url = base_url
-        logger.info(f"LLMService initialized with base_url: {base_url}")
+    def __init__(self):
+        load_dotenv()
+        self.api_key = os.getenv("OPENAI_API_KEY", "NO_NEED_IF_USING_LMSTUDIO")
+        self.base_url = os.getenv("LLM_BASE_URL", "http://127.0.0.1:1234/v1")
+        self.model_name = os.getenv("LLM_MODEL_NAME", "qwen2.5-7b-instruct-1m") # Default model name
+        logger.info(f"LLMService initialized with base_url: {self.base_url}, model_name: {self.model_name}")
 
     def _get_client(self):
         """Create a fresh client for each request to avoid state retention."""
@@ -238,7 +241,7 @@ class LLMService:
             logger.debug("Sending request to LLM")
             try:
                 response = client.chat.completions.create(
-                    model="qwen2.5-7b-instruct-1m",
+                    model=self.model_name,
                     messages=messages,
                     temperature=0.7,
                     max_tokens=2000
