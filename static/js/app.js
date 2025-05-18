@@ -233,9 +233,7 @@ const PresentationGenerator = {
                     <div id="slide-content"></div>
                 </div>
                 <div class="preview-export-actions">
-                    <button id="export-pdf" class="btn btn-primary">
-                        <i class="fas fa-file-pdf"></i> Export as PDF
-                    </button>
+                    
                     <button id="export-pptx" class="btn btn-primary">
                         <i class="fas fa-file-powerpoint"></i> Export as PowerPoint
                     </button>

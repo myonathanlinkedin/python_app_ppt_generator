@@ -372,28 +372,54 @@ select.form-control {
     flex-grow: 1;
 }
 
+.presentation-preview-content {
+    width: 100%;
+    max-width: 1040px; /* Keep max-width for content */
+    margin: 0 auto; /* Center the content */
+    padding: 0 1rem; /* Add padding for content spacing */
+    font-family: var(--body-font); /* Ensure consistent font */
+    color: var(--text-color); /* Default text color */
+}
+
 .presentation-preview-content h1,
 .presentation-preview-content h2,
 .presentation-preview-content h3 {
     background: none;
     -webkit-background-clip: initial;
     background-clip: initial;
-    color: var(--text-color);
+    color: var(--primary-color); /* Use primary color for headings */
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.presentation-preview-content h1 {
+    font-size: 2.5rem; /* Adjusted font size */
+    margin-top: 0; /* Remove top margin */
+}
+
+.presentation-preview-content h2 {
+    font-size: 2rem; /* Adjusted font size */
+    margin-top: 1.5rem; /* Add some top margin */
+}
+
+.presentation-preview-content h3 {
+    font-size: 1.5rem; /* Adjusted font size */
+    margin-top: 1.5rem; /* Add some top margin */
 }
 
 .preview-header {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem; /* Increased bottom margin */
 }
 
 .preview-title {
-    font-size: 2rem;
+    font-size: 2.5rem; /* Adjusted font size */
     color: var(--primary-color);
     margin-bottom: 0.5rem;
 }
 
 .preview-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.5rem; /* Adjusted font size */
     color: var(--text-secondary);
     margin: 0;
 }
@@ -401,13 +427,109 @@ select.form-control {
 .current-slide {
     background: var(--surface-color);
     border-radius: 8px;
-    padding: 2rem;
-    margin: 2rem auto;
+    padding: 3rem; /* Increased padding */
+    margin: 2rem auto; /* Keep margin and centering */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     width: 100%;
     height: 554px;
     max-width: 1040px;
     position: relative;
+    display: flex; /* Use flex for internal layout */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-start; /* Align content to top */
+    align-items: center; /* Center content horizontally */
+}
+
+.slide-content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    display: flex; /* Use flex for internal content */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: flex-start; /* Align text to left */
+}
+
+.title-slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center;
+}
+
+.title-slide h1 {
+    font-size: 3.5rem; /* Larger font size for title slide */
+    margin-bottom: 1rem;
+    color: var(--primary-color); /* Ensure primary color */
+}
+
+.title-slide h3 {
+    font-size: 2rem; /* Larger font size for subtitle */
+    color: var(--text-secondary); /* Ensure secondary color */
+    margin-top: 0;
+}
+
+.slide-points {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 1.5rem 0; /* Add vertical margin */
+}
+
+.slide-points li {
+    margin-bottom: 1rem; /* Space between list items */
+    padding-left: 1.5rem; /* Space for bullet */
+    position: relative;
+    line-height: 1.5; /* Improved line height */
+}
+
+.slide-points li::before {
+    content: "\2022"; /* Unicode for bullet point */
+    color: var(--accent-color); /* Use accent color for bullets */
+    font-size: 1.5rem; /* Larger bullet size */
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 1.5rem 0; /* Vertical margin */
+    width: 100%; /* Ensure container takes full width */
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflowing borders at corners */
+}
+
+.modern-table th,
+.modern-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color); /* Only bottom border */
+}
+
+.modern-table th {
+    background: var(--primary-color); /* Primary color background */
+    color: white; /* White text for headers */
+    font-weight: 600;
+    text-transform: uppercase; /* Uppercase headers */
+}
+
+.modern-table td {
+    color: var(--text-color);
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none; /* No bottom border for last row */
 }
 
 /* Error and Success Messages */
