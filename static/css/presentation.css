@@ -1,0 +1,388 @@
+/* Base Styles */
+:root {
+    --primary-color: #0072C6;
+    --accent-color: #00B294;
+    --background-color: #FFFFFF;
+    --text-color: #404040;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Slide Styles */
+.reveal .slides {
+    text-align: left;
+}
+
+.reveal .slides section {
+    padding: 2rem;
+}
+
+/* Title Slide */
+.title-slide {
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-slide h1 {
+    color: var(--primary-color);
+    font-size: 3.5em;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.title-slide h3 {
+    color: var(--accent-color);
+    font-size: 1.8em;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+/* Content Slides */
+.slide-title {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.slide-body {
+    padding: 1rem;
+}
+
+.slide-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.slide-points li {
+    color: var(--text-color);
+    font-size: 1.4em;
+    margin-bottom: 1rem;
+    padding-left: 1.5em;
+    position: relative;
+    line-height: 1.4;
+}
+
+.slide-points li:before {
+    content: "•";
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Table Styles */
+.modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modern-table th {
+    background: var(--primary-color);
+    color: white;
+    font-size: 1.2em;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.modern-table td {
+    padding: 1rem;
+    font-size: 1.2em;
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none;
+}
+
+.modern-table tr:nth-child(even) td {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal .slides section .fragment {
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.reveal .slides section .fragment.visible {
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .title-slide h1 {
+        font-size: 2.5em;
+    }
+    
+    .title-slide h3 {
+        font-size: 1.4em;
+    }
+    
+    .slide-title {
+        font-size: 2em;
+    }
+    
+    .slide-points li,
+    .modern-table th,
+    .modern-table td {
+        font-size: 1.1em;
+    }
+}
+
+/* Theme-specific styles */
+.theme-corporate {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --text-color: #ffffff;
+    --background-color: #1a1a1a;
+}
+
+/* Additional Presentation Elements */
+.slide-notes {
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid var(--accent-color);
+}
+
+.visual-element {
+    max-width: 100%;
+    margin: 1.5em 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress bar styling */
+.reveal .progress {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.reveal .progress span {
+    background: var(--accent-color);
+}
+
+/* Export Controls */
+.export-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.export-btn {
+    background: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Presentation Styles */
+.reveal {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.reveal h2 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+.reveal p {
+    font-size: 1.4em;
+    line-height: 1.6;
+    color: #34495e;
+    margin-bottom: 1em;
+}
+
+.reveal ul {
+    font-size: 1.3em;
+    color: #34495e;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.reveal li {
+    margin: 0.8em 0;
+    padding-left: 1.5em;
+    position: relative;
+}
+
+.reveal li:before {
+    content: "•";
+    color: #3498db;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.reveal img {
+    max-width: 80%;
+    height: auto;
+    margin: 1em auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Export Buttons */
+.preview-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn.btn-primary {
+    background: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn.btn-primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn.btn-primary i {
+    font-size: 1.2em;
+}
+
+/* Print Styles */
+@media print {
+    @page {
+        size: 1280px 720px landscape;
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .reveal .slides section {
+        position: relative !important;
+        display: block !important;
+        break-inside: avoid;
+        page-break-after: always;
+        height: 720px;
+        width: 1280px;
+        padding: 40px !important;
+        box-sizing: border-box;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .reveal h1 {
+        font-size: 48px !important;
+        color: var(--primary-color) !important;
+        margin-bottom: 24px !important;
+    }
+
+    .reveal h2 {
+        font-size: 36px !important;
+        color: var(--primary-color) !important;
+        margin-bottom: 20px !important;
+    }
+
+    .reveal ul {
+        font-size: 24px !important;
+        color: #000 !important;
+        margin: 0 !important;
+        padding-left: 24px !important;
+    }
+
+    .reveal li {
+        margin-bottom: 16px !important;
+    }
+
+    .reveal table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin: 20px 0 !important;
+    }
+
+    .reveal th {
+        background-color: var(--primary-color) !important;
+        color: #fff !important;
+        font-weight: bold !important;
+        padding: 12px !important;
+        text-align: left !important;
+    }
+
+    .reveal td {
+        padding: 12px !important;
+        border: 1px solid #ddd !important;
+    }
+
+    .reveal tr:nth-child(even) {
+        background-color: #f9f9f9 !important;
+    }
+
+    /* Hide non-printable elements */
+    .preview-navigation,
+    .preview-actions,
+    .controls,
+    .progress {
+        display: none !important;
+    }
+} 

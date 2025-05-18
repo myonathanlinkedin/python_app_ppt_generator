@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ presentation.title }}</title>
+    
+    {% if not print_mode %}
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css">
+    {% endif %}
+    
+    <!-- Custom presentation styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/presentation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% if print_mode %}
+    <style>
+        @page {
+            size: 1280px 720px;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .slide {
+            page-break-after: always;
+            height: 720px;
+            width: 1280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide:last-child {
+            page-break-after: avoid;
+        }
+        .slide h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+        .slide h2 {
+            font-size: 36px;
+            margin-bottom: 24px;
+        }
+        .slide ul, .slide ol {
+            font-size: 24px;
+            text-align: left;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .slide li {
+            margin-bottom: 16px;
+        }
+        .slide table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .slide th, .slide td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .slide th {
+            background-color: {{ presentation.theme.primary_color|default('#0072C6') }};
+            color: white;
+        }
+        .slide tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        :root {
+            --primary-color: {{ presentation.theme.primary_color }};
+            --secondary-color: {{ presentation.theme.secondary_color }};
+            --accent-color: {{ presentation.theme.accent_color }};
+            --background-color: {{ presentation.theme.background_color }};
+        }
+    </style>
+    {% endif %}
+</head>
+<body class="{{ style|default('corporate') }}">
+    {% if print_mode %}
+    <!-- Print mode layout -->
+    {% for slide in presentation.slides %}
+    <div class="slide" style="background-color: {{ presentation.theme.background_color|default('#ffffff') }}">
+        {% if loop.first %}
+        <h1>{{ presentation.title }}</h1>
+        <h2>{{ presentation.subtitle }}</h2>
+        {% else %}
+        <h2>{{ slide.title }}</h2>
+        
+        {% if slide.type == 'table' %}
+        <table>
+            {% set is_header = true %}
+            {% for row in slide.content %}
+            <tr>
+                {% for cell in row %}
+                {% if is_header %}
+                <th>{{ cell }}</th>
+                {% else %}
+                <td>{{ cell }}</td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% set is_header = false %}
+            {% endfor %}
+        </table>
+        {% elif slide.type == 'content' %}
+        <ul>
+            {% for point in slide.content %}
+            <li>{{ point }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="content">
+            {% for point in slide.content %}
+            <p>{{ point }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <!-- Preview mode layout (reveal.js) -->
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-color="{{ presentation.theme.background_color|default('#ffffff') }}">
+                <h1>{{ presentation.title }}</h1>
+                <h2>{{ presentation.subtitle }}</h2>
+            </section>
+            
+            <!-- Content Slides -->
+            {% for slide in presentation.slides %}
+            {% if not loop.first %}
+            <section data-background-color="{{ presentation.theme.background_color|default('#ffffff') }}">
+                <h2>{{ slide.title }}</h2>
+                
+                {% if slide.type == 'table' %}
+                <table>
+                    {% set is_header = true %}
+                    {% for row in slide.content %}
+                    <tr>
+                        {% for cell in row %}
+                        {% if is_header %}
+                        <th>{{ cell }}</th>
+                        {% else %}
+                        <td>{{ cell }}</td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% set is_header = false %}
+                    {% endfor %}
+                </table>
+                {% elif slide.type == 'content' %}
+                <ul>
+                    {% for point in slide.content %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="content">
+                    {% for point in slide.content %}
+                    <p>{{ point }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </section>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            progress: true,
+            controls: true,
+            transition: 'slide',
+            width: 1280,
+            height: 720,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+    </script>
+    {% endif %}
+</body>
+</html> 

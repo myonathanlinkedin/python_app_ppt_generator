@@ -1,120 +1,180 @@
-# PowerPoint Presentation Generator
+# AI Presentation Generator
 
-A Flask-based web application that automatically generates beautiful PowerPoint presentations with modern styling and professional layouts. This application is particularly useful for creating technical presentations, comparisons, and detailed analyses.
-
-For author information and additional project details, please see the [INCLUDE](INCLUDE) file.
+A modern web application that generates beautiful presentations using AI, with a focus on interactivity and professional design using reveal.js.
 
 ## Features
 
-- Automatic presentation generation from structured content
-- Modern slide designs with consistent styling
-- Support for different slide types:
-  - Title slides
-  - Content slides
-  - Table slides
-- Professional formatting with:
-  - Consistent typography
-  - Modern color scheme
-  - Dynamic layouts
-  - Decorative elements
-- Clean and intuitive web interface
+- **AI-Powered Content Generation**: 
+  - Automatically generates comprehensive presentation content based on your topic
+  - Smart content structuring and organization
+  - Professional tone and formatting
 
-## Prerequisites
+- **Interactive HTML Presentations**: 
+  - Built with reveal.js for smooth, modern presentations
+  - Real-time preview in the browser
+  - Beautiful transitions and animations
+  - Responsive design for all screen sizes
+  - Four presentation styles:
+    - Corporate (Professional and clean)
+    - Modern (Bold and contemporary)
+    - Minimal (Simple and elegant)
+    - Creative (Dynamic and engaging)
 
-- Python 3.8 or higher
-- pip (Python package installer)
+- **Export Options**:
+  1. **PDF Export**
+     - Professional print quality
+     - Perfect page breaks
+     - Maintains all styling and formatting
+     - Optimized for both screen and print
+  
+  2. **PowerPoint Export**
+     - Converted from PDF for consistency
+     - Maintains professional formatting
+     - Compatible with Microsoft PowerPoint
+     - Editable for further customization
 
-## Installation
+## Technical Architecture
+
+1. **Frontend Stack**:
+   - HTML5 + CSS3
+   - reveal.js for presentations
+   - Modern responsive design
+   - Font Awesome icons
+   - Inter font family
+
+2. **Backend Stack**:
+   - Flask web framework
+   - OpenAI for content generation
+   - WeasyPrint for PDF export
+   - pdf2pptx for PowerPoint conversion
+
+3. **Content Flow**:
+   ```
+   User Input → AI Generation → HTML Preview (reveal.js) → Export (PDF/PPT)
+   ```
+
+## Dependencies
+
+### Python Dependencies
+```
+Flask==2.0.1
+openai==1.0.0
+WeasyPrint==54.3
+pdf2pptx==1.0.5
+python-dotenv==0.19.0
+```
+
+### System Requirements
+
+#### Windows
+1. **Python 3.8+**
+2. **GTK3 Runtime**
+   - Required for WeasyPrint PDF generation
+   - Download from: [GTK3 Runtime Environment Installer](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases)
+   - Install the latest version (gtk3-runtime-x.x.x-x-x.exe)
+   - Restart your terminal after installation
+
+#### Linux
+```bash
+# Ubuntu/Debian
+sudo apt-get install python3-pip python3-cffi python3-brotli libpango-1.0-0 libharfbuzz0b libpangoft2-1.0-0
+
+# Fedora
+sudo dnf install python3-pip python3-cffi python3-brotli pango harfbuzz
+```
+
+#### macOS
+```bash
+brew install python3 cairo pango gdk-pixbuf libffi
+```
+
+## Setup
 
 1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/ppt_generator.git
-cd ppt_generator
-```
+   ```bash
+   git clone https://github.com/yourusername/presentation-generator.git
+   cd presentation-generator
+   ```
 
-2. Create a virtual environment:
-```bash
-python -m venv venv
-```
+2. Install system dependencies:
+   - Windows: Install GTK3 Runtime (see System Requirements)
+   - Linux/macOS: Run the appropriate commands above
 
-3. Activate the virtual environment:
-- Windows:
-```bash
-.\venv\Scripts\activate
-```
-- Unix/MacOS:
-```bash
-source venv/bin/activate
-```
+3. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-4. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+4. Create and configure .env file:
+   ```bash
+   # Create .env file with the following content:
+   OPENAI_API_KEY=your_openai_api_key_here
+   FLASK_ENV=development
+   DEBUG=True
+   SECRET_KEY=your_secret_key_here
+   OUTPUT_DIR=presentations
+   CLEANUP_INTERVAL=3600
+   ```
+
+5. Run the application:
+   ```bash
+   python app.py
+   ```
 
 ## Usage
 
-1. Start the application:
-```bash
-python app.py
-```
-or
-```bash
-py app.py
-```
-
-2. Open your web browser and navigate to:
-```
-http://localhost:5000
-```
-
-3. Enter your presentation topic and content in the web interface
-
-4. Click "Generate" to create your presentation
-
-5. Download the generated PowerPoint file
+1. Open your browser and navigate to `http://localhost:5000`
+2. Enter your presentation topic
+3. Choose a presentation style (Corporate, Modern, Minimal, or Creative)
+4. Preview your interactive presentation in the browser
+5. Export to PDF or PowerPoint as needed
 
 ## Project Structure
 
 ```
-ppt_generator/
+presentation-generator/
 ├── app.py                 # Main Flask application
 ├── requirements.txt       # Python dependencies
-├── presentations/         # Generated presentations storage
-├── src/
-│   ├── controllers/      # Request handlers
-│   ├── models/           # Data models
-│   ├── services/         # Business logic
-│   └── templates/        # HTML templates
-└── static/               # Static assets (CSS, JS, images)
+├── static/
+│   └── css/
+│       ├── style.css     # Main application styles
+│       └── presentation.css  # Presentation-specific styles
+├── templates/
+│   ├── index.html        # Main application template
+│   └── presentation.html # Presentation template
+└── src/
+    ├── controllers/      # Application controllers
+    ├── services/         # Business logic services
+    └── models/           # Data models
 ```
 
-## Configuration
+## Troubleshooting
 
-The application can be configured through environment variables:
-- `FLASK_ENV`: Set to `development` for debug mode
-- `PORT`: Server port (default: 5000)
-- `HOST`: Server host (default: 0.0.0.0)
+### Common Issues
+
+1. **WeasyPrint Installation**
+   - Error: "Could not import external libraries"
+   - Solution: Install GTK3 Runtime and restart your terminal
+
+2. **PDF Export Issues**
+   - Error: "libgobject-2.0-0 not found"
+   - Solution: Ensure GTK3 is properly installed and system PATH is updated
+
+3. **PowerPoint Export**
+   - Error: "Failed to convert PDF"
+   - Solution: Check if both WeasyPrint and pdf2pptx are properly installed
+
+### Getting Help
+If you encounter any issues:
+1. Check the logs in the `logs` directory
+2. Ensure all system dependencies are installed
+3. Verify your Python environment and dependencies
+4. Create an issue in the GitHub repository
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 ## License
 
-This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.
-
-## Author
-
-For author information and contact details, please refer to the [INCLUDE](INCLUDE) file.
-
-## Acknowledgments
-
-- Built with Python-PPTX for PowerPoint generation
-- Flask web framework
-- Modern UI/UX design principles
-- Special thanks to all contributors 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 

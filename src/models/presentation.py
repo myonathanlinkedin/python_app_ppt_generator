@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Dict, Optional, Union
+from .theme import Theme
 
 @dataclass
 class Slide:
@@ -10,12 +11,6 @@ class Slide:
     visual_notes: Optional[str] = None
     notes: Optional[str] = None
     table_data: Optional[Dict[str, Union[List[str], List[List[str]]]]] = None
-
-@dataclass
-class Theme:
-    primary_color: str = "#0072C6"
-    secondary_color: str = "#404040"
-    accent_color: str = "#00B294"
 
 @dataclass
 class Presentation:
